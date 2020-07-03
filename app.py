@@ -1,6 +1,16 @@
 from flask import Flask, render_template
+from flask_sqlalchemy import SQLAlchemy
+
 
 app = Flask(__name__)
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///posts.db'
+db = SQLAlchemy(app)
+
+class BlogPost(db.Model):
+  id = db.Column(db.Interger, primary_key=True)
+  title = db.Column(db.String(100), nullable=False)
+  content = db.Column(db.Text, nullable=False)
+
 
 all_posts = [
   {
